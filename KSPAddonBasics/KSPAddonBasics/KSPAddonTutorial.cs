@@ -9,6 +9,7 @@ namespace KSPAddonBasics
     [KSPAddon(KSPAddon.Startup.MainMenu, false)]
     class KSPAddonTutorial : MonoBehaviour
     {
+
         private void Log(string message)
         {
             Debug.Log("[KSPAddonTutorial]: [#!#]    " + message);
@@ -20,6 +21,9 @@ namespace KSPAddonBasics
         void Awake()
         {
             Log("Awake Called");
+
+            GameEvents.onGameSceneSwitchRequested.Add(onSceneSwitchRequest);
+            DontDestroyOnLoad(this);
         }
         void Start()
         {
@@ -29,5 +33,10 @@ namespace KSPAddonBasics
         {
             Log("Destroy Called");
         }
+
+        public void onSceneSwitchRequest(GameEvents.FromToAction<GameScenes,GameScenes> action){
+            Log("Scene Changed from " + action.from + " to " + action.to);
+        }
+
     }
 }
