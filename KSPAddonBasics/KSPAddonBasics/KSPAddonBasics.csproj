@@ -54,8 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugWindow.cs" />
     <Compile Include="KSPAddonTutorial.cs" />
+    <Compile Include="ScrollableWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowConstants.cs" />
+    <Compile Include="WindowDimensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

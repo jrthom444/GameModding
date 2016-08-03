@@ -6,37 +6,40 @@ using UnityEngine;
 
 namespace KSPAddonBasics
 {
-    [KSPAddon(KSPAddon.Startup.MainMenu, false)]
+    [KSPAddon(KSPAddon.Startup.Instantly, false)]
     class KSPAddonTutorial : MonoBehaviour
     {
+        private DebugWindow Logger;
 
-        private void Log(string message)
-        {
-            Debug.Log("[KSPAddonTutorial]: [#!#]    " + message);
-        }
         public KSPAddonTutorial()
         {
-            Log("Constructor called");
+            //Use KSP's built-in logger to show initialization.
+            Debug.Log("[KSPAddonTutorial]:Addon Initialized");
         }
         void Awake()
         {
-            Log("Awake Called");
-
+            //Create a Unity IMGUI.GUILayout window designed to show debug statements.
+            Logger = new DebugWindow(new WindowDimensions { Top = 0, Left = 0, Height = 300, Width = 500 });   
             GameEvents.onGameSceneSwitchRequested.Add(onSceneSwitchRequest);
             DontDestroyOnLoad(this);
         }
         void Start()
         {
-            Log("Start Called");
+            Logger.Info("Start Called: Window Initialized: " + Logger.WindowName);
         }
         void OnDestroy()
         {
-            Log("Destroy Called");
+            Debug.Log("[KSPAddonTutorial]: Destroy Called");
+        }
+        void OnGUI()
+        {
+            //The Addon's OnGUI() method is invoked by the game engine.  Must call all other custom OnGUI methods from here.
+            Logger.OnGUI();
+        }
+        public void onSceneSwitchRequest(GameEvents.FromToAction<GameScenes,GameScenes> action){
+            Logger.Info("Scene Changed from " + action.from + " to " + action.to);
         }
 
-        public void onSceneSwitchRequest(GameEvents.FromToAction<GameScenes,GameScenes> action){
-            Log("Scene Changed from " + action.from + " to " + action.to);
-        }
 
     }
 }
