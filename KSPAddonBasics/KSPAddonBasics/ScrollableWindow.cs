@@ -13,6 +13,8 @@ namespace KSPAddonBasics
         public WindowDimensions _dimensions;
         private Vector2 scrollPosition = Vector2.zero;
         public string WindowName;
+        private bool _shouldReDraw = true;
+        
 
         public ScrollableWindow(WindowDimensions dimensions)
         {
@@ -24,7 +26,10 @@ namespace KSPAddonBasics
 
         public void OnGUI()
         {
-            _container = GUILayout.Window(_windowId, _container, DrawWindow, "");
+            if (_shouldReDraw)
+            {
+                _container = GUILayout.Window(_windowId, _container, DrawWindow, "KSPTutorialAddon");
+            }
         }
         
         void DrawWindow(int windowId)
@@ -34,6 +39,16 @@ namespace KSPAddonBasics
             ScrollableContent();
             GUILayout.EndScrollView();
             GUI.DragWindow();
+        }
+
+        public void Show()
+        {
+            _shouldReDraw = true;
+        }
+
+        public void Hide()
+        {
+            _shouldReDraw = false;
         }
 
         public abstract void ScrollableContent();
