@@ -67,7 +67,7 @@ namespace StatiK.Windows
 
         public void InternalSaveHandler(object sender, MissionWindowEventArgs args)
         {
-            this.Hide();
+            this.Hide(CloseAction.WorkflowEvent);
         }
 
         public override void InitializeAppLauncherButton()
@@ -75,7 +75,7 @@ namespace StatiK.Windows
             ApplicationLauncher.AppScenes eligibleGameScenes = ApplicationLauncher.AppScenes.FLIGHT;
             if (_appButton == null)
             {
-                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.Hide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.StatiKIcon);
+                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.AppLaunchHide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.StatiKIcon);
             }
         }
 

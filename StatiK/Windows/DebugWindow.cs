@@ -41,7 +41,7 @@ namespace StatiK.Windows
             ApplicationLauncher.AppScenes eligibleGameScenes = ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.FLIGHT;
             if (_appButton == null)
             {
-                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.Hide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.DebugButtonTexture);
+                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.AppLaunchHide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.DebugButtonTexture);
             }
         }
 

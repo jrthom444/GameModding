@@ -56,12 +56,21 @@ namespace StatiK.Windows
             _controller.Initialize();
         }
 
+        public override void OnHide(CloseAction action)
+        {
+            base.OnHide(action);
+            if(action != CloseAction.AppLauncherClick)
+            {
+                _appButton.SetFalse();
+            }
+        }
+
         public override void InitializeAppLauncherButton()
         {
             ApplicationLauncher.AppScenes eligibleGameScenes = ApplicationLauncher.AppScenes.SPACECENTER;
             if (_appButton == null)
             {
-                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.Hide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.StatiKIcon);
+                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.AppLaunchHide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.StatiKIcon);
             }
         }
 

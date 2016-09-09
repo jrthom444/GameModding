@@ -6,12 +6,15 @@ using UnityEngine;
 
 namespace StatiK.Windows
 {
+    
+    public enum CloseAction {CloseButtonClick, AppLauncherClick, WorkflowEvent};
     public abstract class BaseWindow : IEquatable<BaseWindow>
     {
         public Rect _container;
         public WindowSettings _settings;
         private Vector2 scrollPosition = Vector2.zero;
         private bool _shouldReDraw = false;
+        private Rect _closeButtonDim;
 
         public int Id 
         {
@@ -25,6 +28,7 @@ namespace StatiK.Windows
         {
             _settings = settings;
             _container = _settings.Dimensions.GetRect();
+            _closeButtonDim  = (new GUIDimensions { Left = 3, Top = _settings.Dimensions.Width - 6, Height = 13, Width = 13 }).GetRect();
         }
 
         public void OnGUI()
@@ -37,7 +41,11 @@ namespace StatiK.Windows
         
         void DrawWindow(int windowId)
         {
-            
+
+            if (GUI.Button(_closeButtonDim, ""))
+            {
+                Hide(CloseAction.CloseButtonClick);
+            }
             scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(_settings.Dimensions.Width), GUILayout.Height(_settings.Dimensions.Height));
             ScrollableContent();
             GUILayout.EndScrollView();
@@ -50,10 +58,15 @@ namespace StatiK.Windows
             OnShow();
         }
 
-        public void Hide()
+        public void AppLaunchHide()
+        {
+            Hide(CloseAction.AppLauncherClick);
+        }
+
+        public void Hide(CloseAction action)
         {
             _shouldReDraw = false;
-            OnHide();
+            OnHide(action);
         }
 
         public bool Equals(BaseWindow window)
@@ -67,7 +80,7 @@ namespace StatiK.Windows
 
         public virtual void OnShow() {}
 
-        public virtual void OnHide() {}
+        public virtual void OnHide(CloseAction action) {}
 
         public abstract void InitializeAppLauncherButton();
         public abstract void DestoryAppLauncherButton();
