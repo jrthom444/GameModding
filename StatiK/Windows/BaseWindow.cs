@@ -6,13 +6,20 @@ using UnityEngine;
 
 namespace StatiK.Windows
 {
-    public abstract class BaseWindow
+    public abstract class BaseWindow : IEquatable<BaseWindow>
     {
         public Rect _container;
         public WindowSettings _settings;
         private Vector2 scrollPosition = Vector2.zero;
         private bool _shouldReDraw = false;
 
+        public int Id 
+        {
+            get
+            {
+                return _settings.Id;
+            }
+        }
 
         public BaseWindow(WindowSettings settings)
         {
@@ -40,14 +47,30 @@ namespace StatiK.Windows
         public void Show()
         {
             _shouldReDraw = true;
+            OnShow();
         }
 
         public void Hide()
         {
             _shouldReDraw = false;
+            OnHide();
         }
 
+        public bool Equals(BaseWindow window)
+        {
+            if (window == null)
+            {
+                return false;
+            }
+            return this.Id == window.Id;
+        }
+
+        public virtual void OnShow() {}
+
+        public virtual void OnHide() {}
+
         public abstract void InitializeAppLauncherButton();
+        public abstract void DestoryAppLauncherButton();
         public abstract void ScrollableContent();
     }
 }

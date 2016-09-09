@@ -22,7 +22,7 @@ namespace StatiK.Windows
             };
         }
 
-        private ApplicationLauncherButton appButton;
+        private ApplicationLauncherButton _appButton;
 
         public DebugWindow(WindowSettings settings) : base(settings) {  }
 
@@ -39,10 +39,15 @@ namespace StatiK.Windows
         public override void InitializeAppLauncherButton()
         {
             ApplicationLauncher.AppScenes eligibleGameScenes = ApplicationLauncher.AppScenes.SPACECENTER | ApplicationLauncher.AppScenes.VAB | ApplicationLauncher.AppScenes.FLIGHT;
-            if (appButton == null)
+            if (_appButton == null)
             {
-                appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.Hide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.DebugButtonTexture);
+                _appButton = ApplicationLauncher.Instance.AddModApplication(this.Show, this.Hide, null, null, null, null, eligibleGameScenes, ResourceUtil.Instance.DebugButtonTexture);
             }
+        }
+
+        public override void DestoryAppLauncherButton()
+        {
+            ApplicationLauncher.Instance.RemoveApplication(_appButton);
         }
     }
 }

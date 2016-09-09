@@ -34,6 +34,7 @@ namespace StatiK
         void Start()
         {
             GameEvents.onGUIApplicationLauncherReady.Add(new EventVoid.OnEvent(StatiKCore.Instance.onApplicationLauncherReady));
+            GameEvents.onGUIApplicationLauncherDestroyed.Add(new EventVoid.OnEvent(StatiKCore.Instance.onApplicationLauncherDestroy));
             GameEvents.onGameStateLoad.Add(new EventData<ConfigNode>.OnEvent(StatiKCore.Instance.onGameStateLoad));
             GameEvents.OnVesselRollout.Add(new EventData<ShipConstruct>.OnEvent(StatiKCore.Instance.onVesselRollout));
             GameEvents.OnFundsChanged.Add(new EventData<double, TransactionReasons>.OnEvent(StatiKCore.Instance.onFundsChange));

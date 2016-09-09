@@ -6,7 +6,7 @@ using StatiK.Utils;
 
 namespace StatiK
 {
-    public enum PlayerAction {ROLLOUT_FLIGHT, EDITOR_REVERT, FLIGHT_REVERT, RECOVER_FLIGHT, FLYING, SWITCH_FLYING, EDITING, IDLE, START};
+    public enum PlayerAction {ROLLOUT_FLIGHT, EDITOR_REVERT, FLIGHT_REVERT, RECOVER_FLIGHT, FLYING, SWITCH_FLYING, END_FLYING, EDITING, IDLE, START};
 
     public class PlayerSessionState
     {
@@ -63,7 +63,14 @@ namespace StatiK
             }
             else if(to == GameScenes.SPACECENTER && CurrentPlayerAction != PlayerAction.RECOVER_FLIGHT)
             {
-                CurrentPlayerAction = PlayerAction.IDLE;
+                if(from == GameScenes.FLIGHT)
+                {
+                    CurrentPlayerAction = PlayerAction.END_FLYING;
+                }
+                else 
+                {
+                    CurrentPlayerAction = PlayerAction.IDLE;
+                }
             }
             else if(to == GameScenes.EDITOR)
             {

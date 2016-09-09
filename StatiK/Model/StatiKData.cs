@@ -5,27 +5,30 @@ using System.Text;
 
 namespace StatiK.Model
 {
-    public class Statistics
+    public class StatiKData
     {
         public static List<TransactionReasons> TransactionDebits = new List<TransactionReasons>
-            {
-                TransactionReasons.CrewRecruited,
-                TransactionReasons.ContractPenalty,
-                TransactionReasons.RnDPartPurchase,
-                TransactionReasons.StructureConstruction,
-                TransactionReasons.VesselRollout
-            };
+        {
+            TransactionReasons.CrewRecruited,
+            TransactionReasons.ContractPenalty,
+            TransactionReasons.RnDPartPurchase,
+            TransactionReasons.StructureConstruction,
+            TransactionReasons.VesselRollout
+        };
 
-        public Statistics()
+        public StatiKData()
         {
             CashEarned = 0.0d;
             CashSpent = 0.0d;
+            Missions = new List<Mission>();
         }
 
         [Persistent]
         public double CashEarned;
         [Persistent]
         public double CashSpent;
+        [Persistent]
+        public List<Mission> Missions;
 
         public override string ToString()
         {

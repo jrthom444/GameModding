@@ -10,6 +10,7 @@ namespace StatiK.Persistence
     public static class GameDataService
     {
         private static ILogger log = StatikLogManager.Instance.GetLogger(typeof(GameDataService).Name);
+
         public static KSPData LoadKSPData()
         {
             //ConfigNode node = HighLogic.CurrentGame.config;
@@ -29,7 +30,7 @@ namespace StatiK.Persistence
             }
             else
             {
-                log.Error("Config Node Funds note found");
+                log.Error("Config Node Funds not found");
             }
         }
     }
